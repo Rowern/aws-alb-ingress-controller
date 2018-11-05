@@ -61,3 +61,13 @@ $ OS=darwin make server
 ```bash
 $ AWS_REGION=us-west-2 POD_NAME=alb-ingress-controller POD_NAMESPACE=kube-system go run cmd/main.go --apiserver-host=http://localhost:8001 --cluster-name=devcluster
 ```
+
+
+```
+docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp -e CGO_ENABLED=0 -e GOOS=linux -e GOARCH=amd64 golang:1.11.1 go build -a -installsuffix cgo -ldflags '-s -w -X github.com/kubernetes-sigs/aws-alb-ingress-controller/version.COMMIT=git-16428c70 -X github.com/kubernetes-sigs/aws-alb-ingress-controller/version.RELEASE=1.0-beta.7 -X github.com/kubernetes-sigs/aws-alb-ingress-controller/version.REPO=git@github.com:Rowern/aws-alb-ingress-controller.git' -o server ./cmd
+
+docker build --pull -t 458982166682.dkr.ecr.eu-west-3.amazonaws.com/test-ingress:1.0-beta.7 .
+
+export AWS_PROFILE=dev $(aws ecr get-login --no-include-email --region eu-west-3)
+docker push 458982166682.dkr.ecr.eu-west-3.amazonaws.com/test-ingress:1.0-beta.7
+```
