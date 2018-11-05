@@ -141,14 +141,14 @@ func NewCurrentLoadBalancer(o *NewCurrentLoadBalancerOptions) (newLoadBalancer *
 	}
 
 	// Check WAF
-	webACLResult, err := albwafregional.WAFRegionalsvc.GetWebACLSummary(o.LoadBalancer.LoadBalancerArn)
-	if err != nil {
-		return newLoadBalancer, fmt.Errorf("Failed to get associated Web ACL. Error: %s", err.Error())
-	}
+	// webACLResult, err := albwafregional.WAFRegionalsvc.GetWebACLSummary(o.LoadBalancer.LoadBalancerArn)
+	// if err != nil {
+	// 	return newLoadBalancer, fmt.Errorf("Failed to get associated Web ACL. Error: %s", err.Error())
+	// }
 	var webACLId *string
-	if webACLResult != nil {
-		webACLId = webACLResult.WebACLId
-	}
+	// if webACLResult != nil {
+	// 	webACLId = webACLResult.WebACLId
+	// }
 
 	resourceTags, err := albrgt.RGTsvc.GetClusterResources()
 	if err != nil {
